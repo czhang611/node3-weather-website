@@ -1,7 +1,7 @@
 const request = require('request');
 
 const forecast = (latitude, longitude, callback) => {
-    const url = 'http://api.weatherstack.com/current?access_key=6fe17a32677abdaaa2243c25e3711a1c&query='  + latitude + ',' + longitude + '&units=f';
+    const url = 'http://api.weatherstack.com/current?access_key=6fe17a32677abdaaa2243c25e3711a1c&query='  + latitude + ',' + longitude + '&units=m';
     request({ url, json: true}, (error, {body}) => {
     // request({ url: url, json: true}, (error, response) => {
         if (error) {
@@ -10,15 +10,21 @@ const forecast = (latitude, longitude, callback) => {
             callback('Unable to find the location. Try another search.', undefined);
             // callback('Unable to find the location. Try another search.', undefined);
         } else {
+            // console.log(body);
             callback(undefined, {
                 location: body.request.query,
                 weather: body.current.weather_descriptions[0],
                 temperature: body.current.temperature, 
-                feels_like: body.current.feelslike
-                // location: response.body.request.query,
-                // weather: response.body.current.weather_descriptions[0],
-                // temperature: response.body.current.temperature, 
-                // feels_like: response.body.current.feelslike
+                feels_like: body.current.feelslike,
+                wind_speed: body.current.wind_speed,
+                wind_degree: body.current.wind_degree,
+                wind_dir: body.current.wind_dir,
+                pressure: body.current.pressure,
+                precipitation: body.current.precip,
+                humidity: body.current.humidity,
+                cloudcover: body.current.cloudcover,
+                uv_index: body.current.uvindex,
+                visibility: body.current.visibility
             });
         }
     })

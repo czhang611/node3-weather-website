@@ -30,10 +30,14 @@ weatherForm.addEventListener ('submit', (e) => {
                 // console.log(data.error);
                 messageOne.textContent = data.error;
             } else {
+                console.log(data);
                 messageOne.textContent = data.location;
                 // console.log(data.location);
                 // console.log(data.forecast, ', current temperature: ', data.temperature, ', feels like: ', data.feels_like);
-                messageTwo.textContent = data.forecast + ', current temperature: ' + data.temperature + ', feels like: ' + data.feels_like;
+                messageTwo.innerHTML = data.forecast + ', current temperature: ' + data.temperature + '°C, feels like: ' + data.feels_like + "°C.<br>";
+                messageTwo.innerHTML += data.wind_dir + " wind (" + data.wind_degree + "°) at " + data.wind_speed + " km/hour. Pressure: " + data.pressure + " mbar.<br>";
+                messageTwo.innerHTML += "Precipitation: " + data.precipitation + " mm. Humidity: " + data.humidity + "%. <br>";
+                messageTwo.innerHTML += "Cloud cover: " + data.cloudcover + "%. Visibility: " + data.visibility + " km."
             }
         })
     })

@@ -58,17 +58,26 @@ app.get('/weather', (req, res) => {
         if (error) {
             return console.log(error);
         } else {
-            forecast(latitude, longitude, (error, {weather, temperature, feels_like}) => {
+            forecast(latitude, longitude, (error, data) => {
                 if (error) {
                     return console.log(error);
                 } else {
-                    // console.log(location, ': ', weather, '. It is currently ', temperature, ' degrees Farenheit out, and it feels like ', feels_like, ' degrees out.');
+                    console.log(data);
                     res.send({
                         location: location,
                         address: address,
-                        forecast: weather,
-                        temperature: temperature,
-                        feels_like: feels_like
+                        forecast: data.weather,
+                        temperature: data.temperature,
+                        feels_like: data.feels_like,
+                        wind_speed: data.wind_speed,
+                        wind_degree: data.wind_degree,
+                        wind_dir: data.wind_dir,
+                        pressure: data.pressure,
+                        precipitation: data.precipitation,
+                        humidity: data.humidity,
+                        cloudcover: data.cloudcover,
+                        uv_index: data.uvindex,
+                        visibility: data.visibility
                     })
                 }
             })
